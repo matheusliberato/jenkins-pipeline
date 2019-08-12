@@ -15,5 +15,12 @@ pipeline {
         sh 'tidy -q -e *.html'
       }
     }
+    stage('Upload to AWS') {
+        steps {
+            withAWS(region:'us-east-1',credentials:'mliberato') {
+                s3Upload(pathStyleAccessEnabled:true, payloadSigningEnabled: true, file:'index.html', bucket:'mliberato-bucket-jenkins')
+            }
+        }
+    }
   }
 }
