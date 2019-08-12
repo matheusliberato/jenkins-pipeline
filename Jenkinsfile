@@ -17,7 +17,7 @@ pipeline {
     }
     stage('Upload to AWS') {
         steps {
-            withAWS(region:'us-east-1',credentials:'mliberato') {
+            withAWS(region:'us-east-1',credentials:'jenkins-profile') {
                 s3Upload(pathStyleAccessEnabled:true, payloadSigningEnabled: true, file:'index.html', bucket:'mliberato-bucket-jenkins')
             }
         }
